@@ -1,0 +1,80 @@
+<title>Raymond Ruby REPL</title>
+<meta name="Content-Type" content="text/html; charset=UTF-8">
+ <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+<script type="text/javascript" src="/assets/jquery.console.js"></script>
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+<%= stylesheet_link_tag "desert.css" %>
+
+<script type="text/javascript">
+
+  $(function() {
+    $( "#resizable" ).resizable();
+  });
+  var lines = '';
+  $(document).ready(function(){
+     /* First console */
+     var console1 = $('<div class="console1" id="resizable">');
+
+     $('body').append(console1)
+     var controller1 = console1.console({
+       promptLabel: 'Ruby> ',
+       commandValidate:function(line){
+         if (line === "") {
+           event.preventDefault();
+         } 
+         else {
+          lines = lines + line + '; '
+          
+          $( "#btn" ).click(function( event ) {
+            $.post( "/rubyeval", { line: lines }, function( data ) {
+              console.log(data);
+              $(".console2 .jquery-console-prompt").text(data.answer);
+              event.preventDefault();
+            });
+          });
+
+          $( "#cls").click(function( event ) {  //if user wants to clear screen
+            $('.jquery-console-prompt').text('');
+            lines = '';
+            //var lastPromptPos = $('.jquery-console-prompt-box').last().index();
+            //var secondToLastPrompt = $('.jquery-console-prompt-box').eq(lastPromptPos - 1);
+            // $('.console1 .jquery-console-prompt-box').each(function(){
+            //   $(this).remove();
+            // });
+            //$('.console1 .jquery-console-inner').append(secondToLastPrompt);
+            //return true;
+          });
+         }
+
+       },
+       commandHandle:function(lines){
+          return '';           
+       },
+       animateScroll:true,
+       promptHistory:true,
+       welcomeMessage:'Enter some Ruby expressions to evaluate.'
+     })
+     controller1.promptText("puts 'hello Raymond'");
+
+     /* Second console */
+     var console2 = $('<div class="console2">');
+     $('body').append(console2);
+     var controller2  = console2.console({
+      promptLabel: 'Output> ',
+      commandHandle:function(line){
+        if (line) {
+          return [{msg:"you typed " + line,className:"jquery-console-message-value"}];
+        } 
+      },
+     });
+   });
+
+
+
+</script>
+
+<h1>Raymond Ruby REPL</h1>
+	<%= link_to "Upload RSpec Tests", testers_path %> | 
+	<%= link_to "Upload Your Ruby Code", coders_path %><br>
+  <input id="btn" class="button" value="Run Your Code"><input id="cls" class="button" value="Clear Screen">
+

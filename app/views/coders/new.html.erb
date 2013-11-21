@@ -1,0 +1,10 @@
+<h1>Upload Code</h1>
+
+<%= form_for(@coder) do |f| %>
+  <div class="actions">
+    <%= f.file_field :code %><br>
+    <%= f.submit "Upload Ruby File" %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', coders_path %>

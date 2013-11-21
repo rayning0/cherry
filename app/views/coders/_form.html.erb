@@ -1,0 +1,21 @@
+<%= form_for(@coder) do |f| %>
+  <% if @coder.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@coder.errors.count, "error") %> prohibited this coder from being saved:</h2>
+
+      <ul>
+      <% @coder.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<% if false %>
+  <%= f.text_area :code, style: "width:380px;", rows: 15, class: 'desert.css' %><br>
+  <%= f.submit "Upload Code" %>
+<% end %>
+
+
+  </div>
+<% end %>

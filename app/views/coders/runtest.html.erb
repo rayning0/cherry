@@ -1,0 +1,2 @@
+<pre class="prettyprint lang-rb"><% @testresult.output_hash[:examples].each do |result| %><%= result[:full_description] %><br><%= result[:status] %><br><%= result[:exception][:message] if result[:exception] %><% end %>
+<%= @testresult.output_hash[:summary_line] %></pre>

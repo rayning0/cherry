@@ -1,0 +1,26 @@
+<h1>Uploaded RSpec Test Code from Testers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @testers.each do |tester| %>
+      <tr>
+      	<td><%= link_to tester.code, tester_path(tester) %></td>
+        <td><%= link_to 'Show', tester %></td>
+        <td><%= link_to 'Edit', edit_tester_path(tester) %></td>
+        <td><%= link_to 'Destroy', tester, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Tester', new_tester_path %>

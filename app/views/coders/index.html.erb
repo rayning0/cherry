@@ -1,0 +1,26 @@
+<h1>Uploaded Code by Coder</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @coders.each do |coder| %>
+      <tr>
+      	<td><%= link_to coder.code, coder_path(coder) %></td>
+        <td><%= link_to 'Show', coder %></td>
+        <td><%= link_to 'Edit', edit_coder_path(coder) %></td>
+        <td><%= link_to 'Destroy', coder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Coder', new_coder_path %>
