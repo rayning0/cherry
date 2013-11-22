@@ -1,5 +1,6 @@
 <h1>Upload RSpec Test Code</h1>
-<b>Do NOT include any "require_relative" files! Program will add one for you.</b><br><br>
+<b>Do NOT include any lines that say "require_relative" or "spec_helper"!<br>
+Program will add the right "require_relative" line for you and ignore the others.</b><br><br>
 <%= form_for(@tester) do |f| %>
   <div class="actions">
     <%= f.file_field :code %><br>
@@ -8,4 +9,3 @@
 <% end %>
 
 <%= link_to 'Back', testers_path, class: "button" %>
-

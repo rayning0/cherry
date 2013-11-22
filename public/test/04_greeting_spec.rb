@@ -1,3 +1,8 @@
+require_relative "blah blah blah"
+require 'spec_helper'
+require_relative "spec_helper"
+require 'rspec'
+
 describe '#greeting' do
   it 'should say Good Morning! during the morning' do
     greeting(6).should eq 'Good Morning!'

@@ -12,7 +12,7 @@ class WelcomeController < ApplicationController
     sand.activate!
     expression = params[:line]
     expression = expression.gsub('puts', '')
-
+    binding.pry
     answer = sand.eval <<-RUBY 
       #{expression}
     RUBY

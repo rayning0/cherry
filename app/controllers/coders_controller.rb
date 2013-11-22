@@ -65,15 +65,18 @@ class CodersController < ApplicationController
     end
   end
 
-  # makes new.rb file that adds
-  # "require_relative '../code/coder_file_name' " to start of RSpec file
+  # Makes new.rb file that adds
+  # "require_relative '../code/coder_file_name' " to start of RSpec file.
+  # It also ignores all "require_relative" and "spec_helper" lines from top.
   def insertline(testfile)
     original_file = Rails.root.to_s + "/public/test/" + testfile
     new_file = original_file[0..-3] + 'new.rb'
     File.open(new_file, 'w') do |f|
       f.puts "require_relative '../code/#{@coder.code}'"
       File.foreach(original_file) do |line|
-        f.puts line
+        if !line.include?("require_relative") && !line.include?("spec_helper")
+          f.puts line
+        end
       end 
     end 
   end
@@ -101,14 +104,15 @@ class CodersController < ApplicationController
     config.instance_variable_set(:@reporter, reporter)
 
     # execute rspec runner
-    # 'example_spec.rb' is the location of the spec file
+    # Finds 1st RSpec file to match your uploaded Ruby file. Matches by name.
     testfile = Tester.where("code like ?", "%#{@coder.code[0..-4]}%")[0].code
-
     # add "require_relative '../code/coder_file_name' " to start of testfile
     insertline(testfile) 
-    RSpec::Core::Runner.run([Rails.root.to_s + "/public/test/" + testfile[0..-3] + 'new.rb'])
+    new_file = Rails.root.to_s + "/public/test/" + testfile[0..-3] + 'new.rb'
+    RSpec::Core::Runner.run([new_file])
     # output test result as json
     render :runtest
+    File.delete(new_file)
   end
 
   private

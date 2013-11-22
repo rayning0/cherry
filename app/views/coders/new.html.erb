@@ -1,5 +1,7 @@
 <h1>Upload Code</h1>
-
+<b>Call your file the same name as RSpec test you want to pass.<br>
+Ex: For "bird_spec.rb", call your file "bird.rb"<br>
+The program will search for the right RSpec test to match your Ruby file.</b><br>
 <%= form_for(@coder) do |f| %>
   <div class="actions">
     <%= f.file_field :code %><br><br>
