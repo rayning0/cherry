@@ -1,6 +1,6 @@
 <h1>Editing coder</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @coder %> |
-<%= link_to 'Back', coders_path %>
+<%= link_to 'Show', @coder, class: "button" %> <%= link_to 'Back', coders_path, class: "button" %>
+<pre class="prettyprint lang-rb">
+<% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r+").each_line do |line| %><%= line %><% end %>
+</pre>
+<input class="button" type="submit">

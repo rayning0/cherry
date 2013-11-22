@@ -1,4 +1,4 @@
-<h1>Uploaded RSpec Test Code from Testers</h1>
+<h1>Uploaded RSpec Test Code (by Employer/School)</h1>
 
 <table>
   <thead>
@@ -10,12 +10,12 @@
   </thead>
 
   <tbody>
-    <% @testers.each do |tester| %>
+    <% @testers.sort_by { |t| t.code}.each do |tester| %>
       <tr>
-      	<td><%= link_to tester.code, tester_path(tester) %></td>
-        <td><%= link_to 'Show', tester %></td>
-        <td><%= link_to 'Edit', edit_tester_path(tester) %></td>
-        <td><%= link_to 'Destroy', tester, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to tester.code, tester_path(tester), class: "button red" %></td>
+        <td><%= link_to 'Show', tester, class: "button" %></td>
+        <td><%= link_to 'Edit', edit_tester_path(tester), class: "button" %></td>
+        <td><%= link_to 'Destroy', tester, method: :delete, data: { confirm: 'Are you sure?' }, class: "button" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -23,4 +23,7 @@
 
 <br>
 
-<%= link_to 'New Tester', new_tester_path %>
+<%= link_to 'Upload New RSpec Test', new_tester_path, class: "button black" %> 
+<%= link_to 'Upload New Ruby Code', new_coder_path, class: "button black" %> 
+<%= link_to 'All Ruby Code', coders_path, class: "button gray" %> 
+<%= link_to 'REPL', root_path, class: "button pink" %>

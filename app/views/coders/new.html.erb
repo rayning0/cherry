@@ -2,9 +2,9 @@
 
 <%= form_for(@coder) do |f| %>
   <div class="actions">
-    <%= f.file_field :code %><br>
-    <%= f.submit "Upload Ruby File" %>
+    <%= f.file_field :code %><br><br>
+    <%= f.submit "Upload Ruby File", class: "button" %>
   </div>
 <% end %>
 
-<%= link_to 'Back', coders_path %>
+<%= link_to 'Back', coders_path, class: "button" %>

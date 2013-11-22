@@ -1,6 +1,4 @@
 require_relative '../code/dice.rb'
-#require_relative '../spec_helper'
-#require_relative '../code/dice.rb' # Code your solution in this file
 
 describe "#roll" do
 

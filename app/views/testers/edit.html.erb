@@ -1,6 +1,5 @@
 <h1>Editing tester</h1>
 
-<%= render 'form' %>
+<%= link_to 'Show', @tester, class: "button" %> <%= link_to 'Back', testers_path, class: "button" %>
 
-<%= link_to 'Show', @tester %> |
-<%= link_to 'Back', testers_path %>
+<%= render 'form' %>

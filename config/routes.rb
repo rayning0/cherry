@@ -3,7 +3,7 @@ Repl::Application.routes.draw do
 
   resources :coders
 
-  get '/' => "welcome#index"
+  root "welcome#index", as: "root"
   post '/rubyeval' => "welcome#rubyeval"
   get 'coders/:id/runtest' => "coders#runtest", as: "runtest"
 

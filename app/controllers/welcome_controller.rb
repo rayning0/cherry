@@ -17,7 +17,6 @@ class WelcomeController < ApplicationController
       #{expression}
     RUBY
     #binding.pry
-    #answer = capture_stdout
     #answer = eval("begin $stdout = StringIO.new; 
       #{expression}; 
       #$stdout.string;

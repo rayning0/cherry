@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_tester_path(@tester) %> |
-<%= link_to 'Back', testers_path %>
+<%= link_to 'Edit', edit_tester_path(@tester), class: "button" %> 
+<%= link_to 'Back', testers_path, class: "button" %>
 
 <pre class="prettyprint lang-rb"><% File.open(Rails.root.to_s + "/public/test/" + @tester.code, "r").each_line do |line| %><%= line %><% end %></pre>

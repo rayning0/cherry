@@ -1,7 +1,7 @@
 <p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_coder_path(@coder) %> |
-<%= link_to 'Back', coders_path %> | 
-<%= link_to "Test This Code, BABY!", runtest_path(@coder) %>
+<%= link_to 'Edit', edit_coder_path(@coder), class: "button" %> 
+<%= link_to 'Back', coders_path, class: "button" %> 
+<%= link_to "Test This Monkey!", runtest_path(@coder), class: "button red" %>
 
 <pre class="prettyprint lang-rb"><% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %></pre>
