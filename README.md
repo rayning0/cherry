@@ -6,6 +6,6 @@ Upload your Ruby code.
 
 With 1 click, run RSpec test against your Ruby code!
 
-Also, I have a primitive Ruby REPL. Needs more work. I use jruby_sandbox to sandbox it.
+Also, edit/run your code directly online with my online Ruby code editor! Needs more work. I use jruby_sandbox to sandbox it, but JRuby Sandbox is not secure now. Also, you may not use "gets" statement.
 
 - Raymond Gan
