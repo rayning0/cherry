@@ -13,9 +13,8 @@
     <% @coders.sort_by { |c| c.code}.each do |coder| %>
       <tr>
         <td><%= link_to coder.code, coder_path(coder), class: "button red" %> </td>
-        <td><%= link_to 'Show', coder, class: "button" %> </td>
         <td><%= link_to 'Edit', edit_coder_path(coder), class: "button" %> </td>
-        <td><%= link_to 'Destroy', coder, method: :delete, data: { confirm: 'Are you sure?' }, class: "button" %></td>
+        <td><%= link_to 'Delete', coder, method: :delete, data: { confirm: 'Are you sure?' }, class: "button" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -26,4 +25,4 @@
 <%= link_to 'Upload New Ruby Code', new_coder_path, class: "button black" %> 
 <%= link_to 'Upload New RSpec Test', new_tester_path, class: "button black" %> 
 <%= link_to 'All RSpec Tests', testers_path, class: "button gray" %> 
-<%= link_to 'REPL', root_path, class: "button pink" %>
+<%= link_to 'Ruby Editor', root_path, class: "button pink" %>

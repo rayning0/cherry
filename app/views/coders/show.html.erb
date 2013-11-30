@@ -4,4 +4,13 @@
 <%= link_to 'Back', coders_path, class: "button" %> 
 <%= link_to "Test This Puppy!", runtest_path(@coder), class: "button red" %>
 
-<pre class="prettyprint lang-rb"><% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %></pre>
+<textarea class="my-code" rows="28" style="width: 85%">
+<% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %>
+</textarea>
+<script>
+  $('.my-code').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
+  var editor = $(".my-code").data('ace').editor.ace;
+  editor.setReadOnly(true);
+  editor.getSession().setUseWrapMode(true);   //turn on word wrap
+  editor.getSession().setTabSize(2);
+</script>

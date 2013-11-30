@@ -1,6 +1,13 @@
 <h1>Editing coder</h1>
 <%= link_to 'Show', @coder, class: "button" %> <%= link_to 'Back', coders_path, class: "button" %>
-<pre class="prettyprint lang-rb">
-<% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r+").each_line do |line| %><%= line %><% end %>
-</pre>
-<input class="button" type="submit">
+
+<textarea class="my-code" rows="26" style="width: 85%">
+<% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %>
+</textarea>
+<script>
+  $('.my-code').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
+  var editor = $(".my-code").data('ace').editor.ace;
+  editor.getSession().setUseWrapMode(true);   //turn on word wrap
+  editor.getSession().setTabSize(2);
+</script>
+<button class="btn btn-danger">Save Code</button> 
