@@ -5,7 +5,7 @@
   <%= link_to "Upload RSpec Tests", testers_path, class: "button black" %>  
   <%= link_to "Upload Your Ruby Code", coders_path, class: "button black" %><br><br>
 
-<textarea class="my-code" id="start" rows="14" style="width: 85%">
+<textarea class="my-code" id="start" rows="20" style="width: 85%">
 def is_prime?(n)        # optimized trial division
   return true if n.between?(2, 3)
   return false if (n.even? || n % 3 == 0 || n <= 1)   # no evens, multiples of 3, or nums <= 1
@@ -34,20 +34,20 @@ def bubble_sort(list)
       end
     end
 
-    # if swap happened, return to start and scans whole list again from left to right
+    # if swap happened, return to start and scan whole list again from left to right
     # else we're done
     break unless swapped  
   end
   list
 end
 
-n = 300
+n = 200
 a = Array.new(n) { rand(n) }  # make array of random numbers
 
 puts "Returns sorted array of #{n} random numbers:"
 bubble_sort(a)
 </textarea>
-<button id="btn" class="btn btn-danger">Run Code</button> <button id="cls" class="btn">Clear Screens</button>
+<button id="run" class="btn btn-danger">Run Code</button> <button id="cls" class="btn">Clear Screens</button>
 <br><br>
 
 <textarea class="my-code" id="result"  rows="14" style="width: 85%"></textarea>
@@ -68,13 +68,8 @@ bubble_sort(a)
     editor2.setValue();
   });
 
-  $( window ).resize(function() {
-    editor1.resize();
-    editor2.resize();
-  });
-
   // Run code
-  $( "#btn" ).click(function( event ) {
+  $( "#run" ).click(function( event ) {
     var lines = $('#start').val();
     $.post( "/rubyeval", { line: lines }, function( data ) {
       console.log(data.answer);
@@ -93,6 +88,5 @@ bubble_sort(a)
       editor2.setValue(string_io + "=> " + return_val + error_msg); 
       event.preventDefault();
     });
-
   });
 </script>

@@ -12,7 +12,8 @@ class WelcomeController < ApplicationController
     sand.eval("require 'stringio'") #require it BEFORE activating Sandbox
     sand.activate!
     expression = params[:line]
-
+    # temporary solution to avoid running "system" commands
+    expression = expression.gsub("system", '')  
     begin  
       string_io = sand.eval("
         buffer = StringIO.new

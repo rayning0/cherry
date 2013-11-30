@@ -40,6 +40,7 @@ class CodersController < ApplicationController
   # PATCH/PUT /coders/1
   # PATCH/PUT /coders/1.json
   def update
+    binding.pry
     File.open('/code/' + params[:coder][:filename], "w") do |f|
       f.write(params[:coder][:code].read)
     end
@@ -123,6 +124,7 @@ class CodersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def coder_params
+      binding.pry
       params.require(:coder).permit(:code)
     end
 end

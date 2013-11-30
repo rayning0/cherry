@@ -1,7 +1,7 @@
-<h1>Editing coder</h1>
+<h1>Edit Ruby Code</h1>
 <%= link_to 'Show', @coder, class: "button" %> <%= link_to 'Back', coders_path, class: "button" %>
 
-<textarea class="my-code" rows="26" style="width: 85%">
+<textarea class="my-code" id="start" rows="22" style="width: 85%">
 <% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %>
 </textarea>
 <script>
@@ -10,4 +10,58 @@
   editor.getSession().setUseWrapMode(true);   //turn on word wrap
   editor.getSession().setTabSize(2);
 </script>
-<button class="btn btn-danger">Save Code</button> 
+<button id="save" class="btn btn-danger">Save Code</button> <button id="run" class="btn btn-success">Run Code</button> <button id="cls" class="btn">Clear Screens</button>
+<br><br>
+
+<textarea class="my-code" id="result"  rows="14" style="width: 85%"></textarea>
+
+<script>
+
+  $('#start').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
+  $('#result').ace({ theme: 'github', lang: 'ruby' })
+  var editor1 = $("#start").data('ace').editor.ace;
+  var editor2 = $("#result").data('ace').editor.ace; 
+  editor1.getSession().setUseWrapMode(true);   //turn on word wrap
+  editor1.getSession().setTabSize(2);
+  editor2.getSession().setUseWrapMode(true);
+
+  // Clear both screens
+  $("#cls").click(function(event) {
+    editor1.setValue();
+    editor2.setValue();
+  });
+
+  $("#save").click(function(event) {
+    var lines = $('#start').val();
+    $.ajax({
+      url: $(location).attr('pathname').slice(0,-5),  // "/coders/:id"
+      data: {line: lines},
+      type: "POST",
+      success: function(msg) {
+        alert( "Data Saved: " + msg );
+      }
+    });
+  });
+
+  // Run code
+  $("#run").click(function(event) {
+    var lines = $('#start').val();
+    $.post( "/rubyeval", { line: lines }, function( data ) {
+      console.log(data.answer);
+
+      // May use all of Ace's editor methods now!
+      string_io = data.answer[0];
+      return_val = data.answer[1];
+      error_msg = data.answer[2];
+      if (error_msg != null) {
+        error_msg = "\n" + data.answer[2];
+      } else {
+        error_msg = '';
+      }
+
+      // Just like IRB, this prints both stringIO and return value!
+      editor2.setValue(string_io + "=> " + return_val + error_msg); 
+      event.preventDefault();
+    });
+  });
+</script>
