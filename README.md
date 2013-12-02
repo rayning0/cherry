@@ -1,11 +1,16 @@
-Online RSpec tester and online Ruby code editor (REPL)!
+Online RSpec tester/Ruby code editor (REPL)
+===========================================
 
-Upload your RSpec test code (with no "require_relative" or "spec_helper" statements). The code ignores them and puts in the right "require_relative" line.
+Add/edit/run your Ruby code directly online with my online Ruby code editor---an online IRB! I use [JRuby Sandbox](https://github.com/omghax/jruby-sandbox) to prevent malicious code (like "system" commands) from getting through. You must use at least version 0.2.2! Code editor does not work with "gets" statement. I use the [Ace Editor] (http://ace.c9.io/) integrated with Rails, implemented through the [jQuery-ace-rails] (https://github.com/cheef/jquery-ace-rails) gem.
 
-Upload your Ruby code.
+## To Use
 
-With 1 click, run RSpec test against your Ruby code!
+1. Upload your RSpec test code (with no "require_relative" or "spec_helper" statements). 
 
-Edit/run your code directly online with my online Ruby code editor---very similar to IRB! Needs more work. I use jruby_sandbox to sandbox it, but JRuby Sandbox is not secure now. Also, you may not use "gets" statement.
+2. Upload your Ruby code.
 
-- Raymond Gan
+3. With 1 click, run RSpec test against your Ruby code!
+
+I am adding multiple testers and multiple coders, so companies/schools may use this to test the software skills of job applicants/students.
+
+**Raymond Gan (rayning AT yahoo DOT com)**
