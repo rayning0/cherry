@@ -1,8 +1,8 @@
-<h1>Edit Ruby Code</h1>
+<h1>Edit <%= @coder.code %></h1>
 <%= link_to 'Show', @coder, class: "button" %> <%= link_to 'Back', coders_path, class: "button" %>
 
 <textarea class="my-code" id="start" rows="22" style="width: 85%">
-<% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %>
+  <% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %>
 </textarea>
 <script>
   $('.my-code').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
@@ -32,15 +32,18 @@
   });
 
   $("#save").click(function(event) {
+   
     var lines = $('#start').val();
+    var url = $(location).attr('pathname').slice(0,-5);  // "/coders/:id"
     $.ajax({
-      url: $(location).attr('pathname').slice(0,-5),  // "/coders/:id"
-      data: {line: lines},
+      url: url,
+      data: {coder: {code: $('h1').text().slice(5), line: lines}},
       type: "POST",
-      success: function(msg) {
-        alert( "Data Saved: " + msg );
+      success: function () {
+        $(location).attr('href', url);  // redirects to this page
       }
     });
+
   });
 
   // Run code

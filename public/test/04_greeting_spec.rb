@@ -1,7 +1,5 @@
-require_relative "blah blah blah"
-require 'spec_helper'
-require_relative "spec_helper"
-require 'rspec'
+require_relative '../spec_helper'
+require_relative './greeting.rb' # Code your solution in this file
 
 describe '#greeting' do
   it 'should say Good Morning! during the morning' do

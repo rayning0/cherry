@@ -14,10 +14,9 @@
 //= require jquery_ujs
 //= require jquery.ui.all
 //= require twitter/bootstrap
+//= require prettify
 
 //= require ace/ace
 //= require ace/theme-tomorrow_night_bright
 //= require ace/mode-ruby
 //= require jquery-ace.min
-
-//= require_tree .

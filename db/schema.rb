@@ -17,7 +17,6 @@ ActiveRecord::Schema.define(version: 20131130180557) do
     t.text     "code"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "lines"
   end
 
   create_table "testers", force: true do |t|

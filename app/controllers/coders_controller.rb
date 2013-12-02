@@ -1,5 +1,4 @@
 require 'pry'
-require 'rspec'
 
 class CodersController < ApplicationController
   before_action :set_coder, only: [:show, :edit, :update, :destroy, :runtest]
@@ -34,26 +33,16 @@ class CodersController < ApplicationController
     File.open(Rails.root.join('public', 'code', uploaded_io.original_filename), 'w') do |file|
       file.write(uploaded_io.read)
     end
-    redirect_to coder_path(@coder)
+    redirect_to @coder
   end
 
   # PATCH/PUT /coders/1
   # PATCH/PUT /coders/1.json
   def update
-    binding.pry
-    File.open('/code/' + params[:coder][:filename], "w") do |f|
-      f.write(params[:coder][:code].read)
+    File.open(Rails.root.join('public', 'code', params[:coder][:code]), "w") do |file|
+      file.write(params[:coder][:line])
     end
-    @coder.update(code: params[:coder][:filename])
-    respond_to do |format|
-      if @coder.update(coder_params)
-        format.html { redirect_to @coder, notice: 'Coder was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @coder.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to @coder 
   end
 
   # DELETE /coders/1
@@ -66,18 +55,25 @@ class CodersController < ApplicationController
     end
   end
 
-  # Makes new.rb file that adds
-  # "require_relative '../code/coder_file_name' " to start of RSpec file.
-  # It also ignores all "require_relative" and "spec_helper" lines from top.
+  # Makes temporary new.rb spec file that adds
+  # full text of coder Ruby file to start of spec file.
+  # It ignores all "require_relative" and "spec_helper" lines from top.
   def insertline(testfile)
     original_file = Rails.root.to_s + "/public/test/" + testfile
     new_file = original_file[0..-3] + 'new.rb'
+    coder_file = Rails.root.to_s + "/public/code/" + @coder.code
+
     File.open(new_file, 'w') do |f|
-      f.puts "require_relative '../code/#{@coder.code}'"
+      # f.puts "require_relative '../code/#{@coder.code}'"
+
+      # Stick full text of coder's file into your new.rb spec file
+      File.open(coder_file, "r").each_line do |line|
+        f.puts line
+      end
+
+      # Copy original RSpec file to new temp RSpec file, excluding all "require_relative" and "spec_helper" lines
       File.foreach(original_file) do |line|
-        if !line.include?("require_relative") && !line.include?("spec_helper")
-          f.puts line
-        end
+        f.puts line if !line.include?("require_relative") && !line.include?("spec_helper")
       end 
     end 
   end
@@ -104,13 +100,16 @@ class CodersController < ApplicationController
     # set reporter for rspec configuration
     config.instance_variable_set(:@reporter, reporter)
 
-    # execute rspec runner
-    # Finds 1st RSpec file to match your uploaded Ruby file. Matches by name.
+    # Execute rspec runner
+
+    # Finds 1st RSpec file to match your uploaded Ruby file. Matches it by name.
     testfile = Tester.where("code like ?", "%#{@coder.code[0..-4]}%")[0].code
+
     # add "require_relative '../code/coder_file_name' " to start of testfile
     insertline(testfile) 
     new_file = Rails.root.to_s + "/public/test/" + testfile[0..-3] + 'new.rb'
-    RSpec::Core::Runner.run([new_file])
+
+    RSpec::Core::Runner.run([new_file]) # Runs RSpec test!
     # output test result as json
     render :runtest
     File.delete(new_file)
@@ -124,7 +123,6 @@ class CodersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def coder_params
-      binding.pry
-      params.require(:coder).permit(:code)
+      params.require(:coder).permit(:code, :line)
     end
 end
