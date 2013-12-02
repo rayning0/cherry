@@ -65,6 +65,9 @@ bubble_sort(a)
   editor1.getSession().setTabSize(2);
   editor2.getSession().setUseWrapMode(true);
 
+  $(".ace_cursor-layer").addClass('resizable');
+  $(".resizable").resizable();
+
   // Clear both screens
   $("#cls").click(function(event) {
     editor1.setValue();

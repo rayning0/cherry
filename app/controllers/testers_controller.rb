@@ -25,27 +25,22 @@ class TestersController < ApplicationController
   # POST /testers.json
   def create
     @tester = Tester.new(tester_params)
- 		@tester[:code] = @tester.code.original_filename
-  	@tester.save
-	  uploaded_io = params[:tester][:code]
-	  File.open(Rails.root.join('public', 'test', uploaded_io.original_filename), 'w') do |file|
-	    file.write(uploaded_io.read)
-	  end
-	  redirect_to tester_path(@tester)
+    @tester[:code] = @tester.code.original_filename
+    @tester.save
+    uploaded_io = params[:tester][:code]
+    File.open(Rails.root.join('public', 'test', uploaded_io.original_filename), 'w') do |file|
+      file.write(uploaded_io.read)
+    end
+    redirect_to @tester
   end
 
   # PATCH/PUT /testers/1
   # PATCH/PUT /testers/1.json
   def update
-    respond_to do |format|
-      if @tester.update(tester_params)
-        format.html { redirect_to @tester, notice: 'Tester was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @tester.errors, status: :unprocessable_entity }
-      end
+    File.open(Rails.root.join('public', 'test', params[:tester][:code]), "w") do |file|
+      file.write(params[:tester][:line])
     end
+    redirect_to @tester 
   end
 
   # DELETE /testers/1
@@ -66,6 +61,6 @@ class TestersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tester_params
-      params.require(:tester).permit(:code)
+      params.require(:tester).permit(:code, :line)
     end
 end

@@ -6,6 +6,7 @@ Repl::Application.routes.draw do
   root "welcome#index", as: "root"
   post '/rubyeval' => "welcome#rubyeval"
   post 'coders/:id' => "coders#update"
+  post 'testers/:id' => "testers#update"
   get 'coders/:id/runtest' => "coders#runtest", as: "runtest"
 
   # The priority is based upon order of creation: first created -> highest priority.

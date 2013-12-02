@@ -1,6 +1,6 @@
-# Create a Grandma class that responds to a speak_to method.
+# Write a speak_to_grandma method.
 
-# Whatever you speak_to grandma, she should respond with
+# Whatever you say to grandma, she should respond with
 # HUH?!  SPEAK UP, SONNY!
 # unless you shout it (type in all capitals).
 
@@ -9,12 +9,10 @@
 
 # NO, NOT SINCE 1938!
 
-class Grandma
-  def speak_to(phrase)
-    if phrase.upcase == phrase
-      return 'NO, NOT SINCE 1938!'
-    else
-      return 'HUH?!  SPEAK UP, SONNY!'
-    end
+def speak_to_grandma(speak)
+  if speak.upcase == speak
+    return 'NO, NOT SINCE 1938!'
+  else
+    return 'HUH?!  SPEAK UP, SONNY!'
   end
 end

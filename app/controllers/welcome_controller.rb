@@ -1,4 +1,3 @@
-require 'sandbox'
 require 'stringio'
 require 'pry'
 
@@ -13,7 +12,7 @@ class WelcomeController < ApplicationController
     sand.activate!
     expression = params[:line]
     # temporary solution to avoid running "system" commands
-    expression = expression.gsub("system", '')  
+    # expression = expression.gsub("system", '')  
     begin  
       string_io = sand.eval("
         buffer = StringIO.new

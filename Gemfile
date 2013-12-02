@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gem "fakefs", :require => "fakefs/safe"
-gem 'jruby_sandbox'
+gem 'jruby_sandbox', '0.2.2', :require => 'sandbox'
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'rspec'
 gem 'jquery-ace-rails'

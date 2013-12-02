@@ -1,9 +1,9 @@
-<h1>Edit RSpec Test Code</h1>
+<h1>Edit <%= @tester.code %></h1>
 
 <%= link_to 'Show', @tester, class: "button" %> <%= link_to 'Back', testers_path, class: "button" %>
 
-<textarea class="my-code" rows="26" style="width: 85%">
-<% File.open(Rails.root.to_s + "/public/test/" + @tester.code, "r").each_line do |line| %><%= line %><% end %>
+<textarea class="my-code" id="start" rows="22" style="width: 85%">
+  <% File.open(Rails.root.to_s + "/public/test/" + @tester.code, "r").each_line do |line| %><%= line %><% end %>
 </textarea>
 <script>
   $('.my-code').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
@@ -11,4 +11,33 @@
   editor.getSession().setUseWrapMode(true);   //turn on word wrap
   editor.getSession().setTabSize(2);
 </script>
-<button class="btn btn-danger">Save Code</button> 
+<button id="save" class="btn btn-danger">Save Code</button> <button id="cls" class="btn">Clear Screen</button>
+<br><br>
+
+<script>
+
+  $('#start').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
+  var editor1 = $("#start").data('ace').editor.ace;
+  editor1.getSession().setUseWrapMode(true);   //turn on word wrap
+  editor1.getSession().setTabSize(2);
+
+  // Clear screen
+  $("#cls").click(function(event) {
+    editor1.setValue();
+  });
+
+  $("#save").click(function(event) {
+   
+    var lines = $('#start').val();
+    var url = $(location).attr('pathname').slice(0,-5);  // "/testers/:id"
+    $.ajax({
+      url: url,
+      data: {tester: {code: $('h1').text().slice(5), line: lines}},
+      type: "POST",
+      success: function () {
+        $(location).attr('href', url);  // redirects to this page
+      }
+    });
+  });
+
+</script>

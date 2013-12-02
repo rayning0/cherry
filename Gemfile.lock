@@ -75,7 +75,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-ui-rails (4.1.0)
       railties (>= 3.1.0)
-    jruby_sandbox (0.2.0-java)
+    jruby_sandbox (0.2.2-java)
       fakefs
     json (1.8.1-java)
     mail (2.5.4)
@@ -173,7 +173,7 @@ DEPENDENCIES
   jquery-ace-rails
   jquery-rails
   jquery-ui-rails
-  jruby_sandbox
+  jruby_sandbox (= 0.2.2)
   pry
   puma
   rails (= 4.0.1)
