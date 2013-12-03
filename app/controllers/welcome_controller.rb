@@ -36,4 +36,7 @@ class WelcomeController < ApplicationController
 
     render :json => {answer: [string_io, return_val, error_msg]}
   end
+
+  def test
+  end
 end

@@ -8,6 +8,7 @@ to make Java HotSpot run on CLIENT, not SERVER -->
   <%= link_to "Upload RSpec Tests", testers_path, class: "button black" %>  
   <%= link_to "Upload Your Ruby Code", coders_path, class: "button black" %><br><br>
 
+<div id="drag">
 <textarea class="my-code" id="start" rows="20" style="width: 85%">
 def is_prime?(n)        # optimized trial division
   return true if n.between?(2, 3)
@@ -50,7 +51,7 @@ a = Array.new(n) { rand(n) }  # make array of random numbers
 puts "Returns sorted array of #{n} random numbers:"
 bubble_sort(a)
 </textarea>
-<button id="run" class="btn btn-danger">Run Code</button> <button id="cls" class="btn">Clear Screens</button>
+<button id="run" class="btn btn-danger">Run Code</button> <button id="cls" class="btn">Clear Screens</button></div>
 <br><br>
 
 <textarea class="my-code" id="result"  rows="14" style="width: 85%"></textarea>
@@ -65,8 +66,7 @@ bubble_sort(a)
   editor1.getSession().setTabSize(2);
   editor2.getSession().setUseWrapMode(true);
 
-  $(".ace_cursor-layer").addClass('resizable');
-  $(".resizable").resizable();
+  $( "#drag" ).draggable();
 
   // Clear both screens
   $("#cls").click(function(event) {
