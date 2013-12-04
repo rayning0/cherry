@@ -1,18 +1,39 @@
-<head>
-  <meta charset="utf-8">
-  <title>jQuery UI Draggable - Default functionality</title>
-  <style>
-  #draggable { width: 150px; height: 150px; padding: 0.5em; }
-  </style>
-  <script>
-  $(function() {
-    $( "#draggable" ).draggable();
-  });
-  </script>
-</head>
-<body>
- 
-<div id="draggable" class="ui-widget-content">
-  <p>Drag me around</p>
-</div>
- 
+<script type="text/javascript">
+$(function() { 
+    $("#myTab a").click(function(event){
+      event.preventDefault();
+      $(this).tab('show');
+    });
+});
+</script>
+
+<div class="bs-example">
+  <ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#sectionA">Ruby Code Editor</a></li>
+    <li class="dropdown">
+      <a data-toggle="dropdown" class="dropdown-toggle" href="#">RSpec Tests<b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="#dropdown1">Dropdown1</a></li>
+        <li><a href="#dropdown2">Dropdown2</a></li>
+      </ul>
+    </li>
+    <li class="dropdown">
+      <a data-toggle="dropdown" class="dropdown-toggle" href="#">Ruby Code<b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <li><a href="#dropdown1">Dropdown1</a></li>
+        <li><a href="#dropdown2">Dropdown2</a></li>
+      </ul>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div id="sectionA" class="tab-pane fade in active">
+      <p>Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui. Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi.</p>
+    </div>
+    <div id="dropdown1" class="tab-pane fade">
+      <p>WInteger convallis, nulla in sollicitudin placerat, ligula enim auctor lectus, in mollis diam dolor at lorem. Sed bibendum nibh sit amet dictum feugiat. Vivamus arcu sem, cursus a feugiat ut, iaculis at erat. Donec vehicula at ligula vitae venenatis. Sed nunc nulla, vehicula non porttitor in, pharetra et dolor. Fusce nec velit velit. Pellentesque consectetur eros.</p>
+    </div>
+    <div id="dropdown2" class="tab-pane fade">
+      <p>Donec vel placerat quam, ut euismod risus. Sed a mi suscipit, elementum sem a, hendrerit velit. Donec at erat magna. Sed dignissim orci nec eleifend egestas. Donec eget mi consequat massa vestibulum laoreet. Mauris et ultrices nulla, malesuada volutpat ante. Fusce ut orci lorem. Donec molestie libero in tempus imperdiet. Cum sociis natoque penatibus et magnis dis parturient.</p>
+    </div>
+  </div>
+</div>          

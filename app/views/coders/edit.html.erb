@@ -1,4 +1,4 @@
-<h1>Edit <%= @coder.code %></h1>
+<h1>Edit <span id="filename"><%= @coder.code %></span></h1>
 <%= link_to 'Show', @coder, class: "button" %> <%= link_to 'Back', coders_path, class: "button" %>
 
 <textarea class="my-code" id="start" rows="22" style="width: 85%">
@@ -32,7 +32,7 @@
     var url = $(location).attr('pathname').slice(0,-5);  // "/coders/:id"
     $.ajax({
       url: url,
-      data: {coder: {code: $('h1').text().slice(5), line: lines}},
+      data: {coder: {code: $('#filename').text(), line: lines}},
       type: "POST",
       success: function () {
         $(location).attr('href', url);  // redirects to this page

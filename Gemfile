@@ -1,9 +1,10 @@
 source 'https://rubygems.org'
 gem "fakefs", :require => "fakefs/safe"
 gem 'jruby_sandbox', '0.2.2', :require => 'sandbox'
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'anjlab-bootstrap-rails', '~> 3.0.2.0', :require => 'bootstrap-rails'
 gem 'rspec'
 gem 'jquery-ace-rails'
+
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.1'

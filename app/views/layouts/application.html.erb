@@ -1,7 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Repl</title>
+  <title>Cherry: Online Ruby Code Editor and RSpec Tester (REPL)</title>
+  <meta name="Content-Type" content="text/html; charset=UTF-8">
+
+  <div class="jumbotron">
+    <h1><span class="jumbo-bigger">Cherry</span>
+    <%= image_tag "cherry.gif" %>
+    <span class="jumbo-smaller">Ruby Code Editor and RSpec Tester</span>
+    </h1>
+  </div>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -10,5 +18,6 @@
 
 <%= yield %>
 
+&nbsp;&nbsp;&nbsp;Built with ♥ by <%= link_to 'Raymond Gan (@rgan0)', "https://twitter.com/rgan0" %> 
 </body>
 </html>

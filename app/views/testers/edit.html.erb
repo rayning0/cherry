@@ -1,4 +1,4 @@
-<h1>Edit <%= @tester.code %></h1>
+<h1>Edit <span id="filename"><%= @tester.code %></span></h1>
 
 <%= link_to 'Show', @tester, class: "button" %> <%= link_to 'Back', testers_path, class: "button" %>
 
@@ -32,7 +32,7 @@
     var url = $(location).attr('pathname').slice(0,-5);  // "/testers/:id"
     $.ajax({
       url: url,
-      data: {tester: {code: $('h1').text().slice(5), line: lines}},
+      data: {tester: {code: $('#filename').text(), line: lines}},
       type: "POST",
       success: function () {
         $(location).attr('href', url);  // redirects to this page
