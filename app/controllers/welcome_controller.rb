@@ -1,19 +1,24 @@
 require 'stringio'
-require 'pry'
+require 'timeout'
 
 class WelcomeController < ApplicationController
   def index
-
+    @coders = Coder.all
+    @testers = Tester.all
   end
 
   def rubyeval
+    expression = params[:line]
+
     sand = Sandbox.safe
     sand.eval("require 'stringio'") #require it BEFORE activating Sandbox
-    sand.activate!
-    expression = params[:line]
-    # temporary solution to avoid running "system" commands
-    # expression = expression.gsub("system", '')  
+    sand.activate!    # Screens code for malicious commands through Sandbox
+    
+    string_io = ""
+    return_val = ""
+
     begin  
+      Timeout::timeout(6) {  # protects against some code running too long
       string_io = sand.eval("
         buffer = StringIO.new
         $stdout = buffer
@@ -28,8 +33,13 @@ class WelcomeController < ApplicationController
         ")
 
       return_val = sand.eval(expression)
+    }
     rescue Exception => e  
-      error_msg = e.message  
+      if e.message.include?("execution expired")
+        error_msg = "Your code took too long to run. It probably has an infinite loop."
+      else
+        error_msg = e.message  
+      end
     end 
 
     #Rails.logger.info("PARAMS: #{params.inspect}. ANSWER: #{answer.inspect}")

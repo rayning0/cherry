@@ -1,49 +1,58 @@
-<h1>Edit <span id="filename"><%= @coder.code %></span></h1>
-<%= link_to 'Show', @coder, class: "button" %> <%= link_to 'Back', coders_path, class: "button" %>
+<h1>Edit <span data-id="<%= @coder.id %>" id="filename-code-edit"><%= @coder.code %></span></h1>
 
-<textarea class="my-code" id="start" rows="22" style="width: 85%">
+<div style="float: right;"><%= button_to "Delete File", @coder, method: :delete, class: "btn btn-info" %> <button id="test-code-edit" class="btn btn-primary">Test Code (with no changes)</button></div>
+<textarea class="my-code-code-edit" id="start-code-edit" rows="22" style="width: 90%">
   <% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %>
 </textarea>
 
-<button id="save" class="btn btn-danger">Save Code</button> <button id="run" class="btn btn-success">Run Code</button> <button id="cls" class="btn">Clear Screens</button>
+<script>
+  $('.my-code-code-edit').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
+  var editor = $(".my-code-code-edit").data('ace').editor.ace;
+  editor.getSession().setUseWrapMode(true);   //turn on word wrap
+  editor.getSession().setTabSize(2);
+</script>
+
+<button id="save-code-edit" class="btn btn-danger">Save Code</button> <button id="run-code-edit" class="btn btn-success">Run Code</button> <button id="cls-code-edit" class="btn">Clear Screens</button>
 <br><br>
 
-<textarea class="my-code" id="result"  rows="14" style="width: 85%"></textarea>
+<textarea class="my-code-code-edit" id="result-code-edit" rows="14" style="width: 90%"></textarea>
 
 <script>
 
-  $('#start').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
-  $('#result').ace({ theme: 'github', lang: 'ruby' })
-  var editor1 = $("#start").data('ace').editor.ace;
-  var editor2 = $("#result").data('ace').editor.ace; 
+  $('#start-code-edit').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
+  $('#result-code-edit').ace({ theme: 'github', lang: 'ruby' })
+  var editor1 = $("#start-code-edit").data('ace').editor.ace;
+  var editor2 = $("#result-code-edit").data('ace').editor.ace; 
   editor1.getSession().setUseWrapMode(true);   //turn on word wrap
   editor1.getSession().setTabSize(2);
   editor2.getSession().setUseWrapMode(true);
 
   // Clear both screens
-  $("#cls").click(function(event) {
+  $("#cls-code-edit").click(function(event) {
     editor1.setValue();
     editor2.setValue();
   });
 
-  $("#save").click(function(event) {
+  // Save code
+  $("#save-code-edit").click(function(event) {
    
-    var lines = $('#start').val();
-    var url = $(location).attr('pathname').slice(0,-5);  // "/coders/:id"
+    var lines = $('#start-code-edit').val();
+    var url = "/coders/" + $('#filename-code-edit').data("id");  // "/coders/:id"
     $.ajax({
       url: url,
-      data: {coder: {code: $('#filename').text(), line: lines}},
+      data: {coder: {code: $('#filename-code-edit').text(), line: lines}},
       type: "POST",
       success: function () {
-        $(location).attr('href', url);  // redirects to this page
+        $.get(url, function( data ) {
+          $("#code").html(data);    //returns show page by AJAX
+        });
       }
     });
-
   });
 
   // Run code
-  $("#run").click(function(event) {
-    var lines = $('#start').val();
+    $( "body").on("click", "#run-code-edit", function( event ) {
+    var lines = $('#start-code-edit').val();
     $.post( "/rubyeval", { line: lines }, function( data ) {
       console.log(data.answer);
 
@@ -62,4 +71,30 @@
       event.preventDefault();
     });
   });
+
+  // Test code
+  $( "#test-code-edit" ).click(function( event ) {
+    var url = "/coders/" + $('#filename-code-edit').data("id") + "/runtest";
+    $.get(url, function( data ) {
+      $("#code").html(data);
+    });
+  });
+
+  // Delete file
+  //$( "#delete-code-edit" ).click(function( event ) {
+  //  var url = "/coders/" + $('#filename-code-edit').data("id");
+  //
+  //  $.ajax({
+  //    type: "DELETE",
+  //    url: url,
+  //    dataType: "json",
+  //    data: {coder: {code: $('#filename-code-edit').text(), "_method//":"delete"}},
+  //    success: function(){
+  //      $.get('/', function( data ) {
+  //        location.reload;
+  //      });
+  //    }
+  //  });
+  //});
+
 </script>

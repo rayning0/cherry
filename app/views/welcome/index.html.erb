@@ -1,9 +1,51 @@
-<!-- To make JRuby run faster, do "export JAVA_OPTS='-d32'" before "rails s" 
-to make Java HotSpot run on CLIENT, not SERVER -->
-  <%= link_to "Upload RSpec Tests", testers_path, class: "button black" %>  
-  <%= link_to "Upload Your Ruby Code", coders_path, class: "button black" %><br><br>
+<!-- To make JRuby run faster, do "export JAVA_OPTS='-d32'" before "rails s" to make Java HotSpot run on CLIENT, not SERVER -->
 
-<textarea class="my-code" id="start" rows="20" style="width: 85%">
+<script type="text/javascript">
+$(function() { 
+    $("#myTab a").click(function(event){
+      event.preventDefault();
+      $(this).tab('show');
+    });
+});
+</script>
+
+<div class="bs-example">
+  <ul class="nav nav-tabs" id="myTab">
+    <li class="active"><a href="#sectionA">Ruby Code Editor</a></li>
+    
+    <li><a id="upload_test" href="#uploadtest">Upload</a></li>
+
+    <li class="dropdown">
+      <a data-toggle="dropdown" class="dropdown-toggle" href="#">RSpec Tests<b class="caret"></b></a>
+      <ul class="dropdown-menu">
+
+        <% @testers.sort_by{ |t| t.code}.each do |tester| %>
+          <li><a class="test_link" id="<%= tester.id %>" href="#test"><%= tester.code %></a></li>
+        <% end %>
+
+      </ul>
+    </li>
+
+    <li><a id="upload_code" href="#uploadcode">Upload</a></li>
+
+    <li class="dropdown">
+      <a data-toggle="dropdown" class="dropdown-toggle" href="#">Ruby Code<b class="caret"></b></a>
+      <ul class="dropdown-menu">
+
+        <% @coders.sort_by { |c| c.code}.each do |coder| %>
+          <li><a class="code_link" id="<%= coder.id %>" href="#code"><%= coder.code %></a></li>
+        <% end %>
+
+      </ul>
+    </li>
+
+    <li><a href="#sectionB">How to Use</a></li>
+
+  </ul>
+
+  <div class="tab-content">
+    <div id="sectionA" class="tab-pane fade in active">
+      <textarea class="my-code-index" id="start-index" rows="20" style="width: 90%">
 def is_prime?(n)        # optimized trial division
   return true if n.between?(2, 3)
   return false if (n.even? || n % 3 == 0 || n <= 1)   # no evens, multiples of 3, or nums <= 1
@@ -44,31 +86,95 @@ a = Array.new(n) { rand(n) }  # make array of random numbers
 
 puts "Returns sorted array of #{n} random numbers:"
 bubble_sort(a)
-</textarea>
-<button id="run" class="btn btn-success">Run Code</button> <button id="cls" class="btn">Clear Screens</button>
-<br><br>
+      </textarea>
+      <button id="run-index" class="btn btn-success">Run Code</button> <button id="cls-index" class="btn">Clear Screens</button>
+      <br><br>
 
-<textarea class="my-code" id="result"  rows="14" style="width: 85%"></textarea>
+      <textarea class="my-code-index" id="result-index"  rows="14" style="width: 90%"></textarea>
+
+    </div>
+
+    <div id="uploadtest" class="tab-pane fade">
+      <script>
+        $( "#upload_test" ).click(function( event ) {
+          $.get("/testers/new", function( data ) {
+            $("#uploadtest").html(data);
+          });
+        });
+      </script>
+    </div>
+
+    <div id="uploadcode" class="tab-pane fade">
+      <script>
+        $( "#upload_code" ).click(function( event ) {
+          $.get("/coders/new", function( data ) {
+            $("#uploadcode").html(data);
+          });
+        });
+      </script>
+    </div>
+
+    <div id="test" class="tab-pane fade">
+      <script>
+        $( ".test_link" ).click(function( event ) {
+          $.get("/testers/" + this.id + "/edit", function( data ) {
+            $("#test").html(data);
+          });
+        });
+      </script>
+    </div>
+
+    <div id="code" class="tab-pane fade">
+      <script>
+        $( ".code_link" ).click(function( event ) {
+          $.get("/coders/" + this.id + "/edit", function( data ) {
+            $("#code").html(data);
+          });
+        });
+      </script>
+    </div>
+
+    <div id="sectionB" class="tab-pane fade">
+      <p><b>If you are an employer or school:</b>
+      <ol>
+        <li>Upload <a href="http://rspec.info/">RSpec</a> Ruby test code for your coding challenge or programming homework.</li>
+        <li>Tell job applicants or students to upload their Ruby code that matches your test.</li>
+        <li>Run RSpec test against their code. See their errors, if any.</li>
+        <li>Edit and resave your Rpsec tests, if you wish.</li>
+        <li>Use Cherry to check their Ruby coding skills.</li>
+      </ol>
+      <p><b>If you are everyone else:</b>
+      <ol>
+        <li>Upload your RSpec Ruby test code.</li>
+        <li>Upload your Ruby code matching this test.</li>
+        <li>Run RSpec test against your code.</li>
+        <li>Edit and resave your Ruby code, if you wish.</li>
+        <li>Have fun playing with the online Ruby editor! It works almost as well as IRB, but it does not allow "gets" statement and freezes during infinite loops.</li>
+      </ol></p>    
+    </div>
+  </div>
+
+</div>   
 
 <script>
-
-  $('#start').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
-  $('#result').ace({ theme: 'github', lang: 'ruby' })
-  var editor1 = $("#start").data('ace').editor.ace;
-  var editor2 = $("#result").data('ace').editor.ace; 
+$(function(){
+  $('#start-index').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
+  $('#result-index').ace({ theme: 'github', lang: 'ruby' })
+  var editor1 = $("#start-index").data('ace').editor.ace;
+  var editor2 = $("#result-index").data('ace').editor.ace; 
   editor1.getSession().setUseWrapMode(true);   //turn on word wrap
   editor1.getSession().setTabSize(2);
   editor2.getSession().setUseWrapMode(true);
 
   // Clear both screens
-  $("#cls").click(function(event) {
+  $("#cls-index").click(function(event) {
     editor1.setValue();
     editor2.setValue();
   });
 
   // Run code
-  $( "#run" ).click(function( event ) {
-    var lines = $('#start').val();
+  $( "body").on("click", "#run-index", function( event ) {
+    var lines = $('#start-index').val();
     $.post( "/rubyeval", { line: lines }, function( data ) {
       console.log(data.answer);
 
@@ -87,4 +193,5 @@ bubble_sort(a)
       event.preventDefault();
     });
   });
-</script>
+});   
+</script>  

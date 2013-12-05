@@ -1,5 +1,7 @@
 class TestersController < ApplicationController
   before_action :set_tester, only: [:show, :edit, :update, :destroy]
+  respond_to :html, :js, :xml, :json
+  layout false
 
   # GET /testers
   # GET /testers.json
@@ -46,9 +48,10 @@ class TestersController < ApplicationController
   # DELETE /testers/1
   # DELETE /testers/1.json
   def destroy
+    File.delete(Rails.root.join('public', 'test', params[:tester][:code]))
     @tester.destroy
     respond_to do |format|
-      format.html { redirect_to testers_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end

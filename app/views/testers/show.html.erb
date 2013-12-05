@@ -1,13 +1,20 @@
 <p id="notice"><%= notice %></p>
 <h1><%= @tester.code %></h1>
-<%= link_to 'Edit', edit_tester_path(@tester), class: "button" %> 
-<%= link_to 'Back', testers_path, class: "button" %>
+<button data-id="<%= @tester.id %>" id="edit-test" class="btn btn-warning">Edit Test</button>
 
-<textarea class="my-code" rows="28" style="width: 85%">
+<textarea class="my-code-test-show" rows="28" style="width: 90%">
 <% File.open(Rails.root.to_s + "/public/test/" + @tester.code, "r").each_line do |line| %><%= line %><% end %>
 </textarea>
 <script>
-  $('.my-code').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
-  var editor = $(".my-code").data('ace').editor.ace;
+  $('.my-code-test-show').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
+  var editor = $(".my-code-test-show").data('ace').editor.ace;
   editor.setReadOnly(true);
+  editor.getSession().setUseWrapMode(true);   //turn on word wrap
+
+  $( "#edit-test" ).click(function( event ) {
+    var url = "/testers/" + $('#edit-test').data("id") + "/edit";
+    $.get(url, function( data ) {
+      $("#test").html(data);
+    });
+  });
 </script>

@@ -1,7 +1,8 @@
 require 'pry'
-
 class CodersController < ApplicationController
   before_action :set_coder, only: [:show, :edit, :update, :destroy, :runtest]
+  respond_to :html, :js, :xml, :json
+  layout false
 
   # GET /coders
   # GET /coders.json
@@ -48,9 +49,10 @@ class CodersController < ApplicationController
   # DELETE /coders/1
   # DELETE /coders/1.json
   def destroy
+    File.delete(Rails.root.join('public', 'code', @coder.code))
     @coder.destroy
     respond_to do |format|
-      format.html { redirect_to coders_url }
+      format.html { redirect_to root_path }
       format.json { head :no_content }
     end
   end

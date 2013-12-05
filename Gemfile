@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 gem "fakefs", :require => "fakefs/safe"
 gem 'jruby_sandbox', '0.2.2', :require => 'sandbox'
+gem 'ruby_cop'
 gem 'anjlab-bootstrap-rails', '~> 3.0.2.0', :require => 'bootstrap-rails'
 gem 'rspec'
 gem 'jquery-ace-rails'

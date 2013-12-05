@@ -1,16 +1,43 @@
 <p id="notice"><%= notice %></p>
-<h1><%= @coder.code %></h1>
-<%= link_to 'Edit', edit_coder_path(@coder), class: "button" %> 
-<%= link_to 'Back', coders_path, class: "button" %> 
-<%= link_to "Test This Puppy!", runtest_path(@coder), class: "button red" %>
+<h1><span data-id="<%= @coder.id %>" id="filename-code-show"><%= @coder.code %></span></h1>
+<button id="edit-code-show" class="btn btn-warning">Edit Code</button> <button id="test-code-show" class="btn btn-primary">Test Code</button> <button id="delete-code-show" class="btn btn-info">Delete File</button>
 
-<textarea class="my-code" rows="28" style="width: 85%">
+<textarea class="my-code-code-show" rows="28" style="width: 90%">
 <% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %>
 </textarea>
 <script>
-  $('.my-code').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
-  var editor = $(".my-code").data('ace').editor.ace;
+  $('.my-code-code-show').ace({ theme: 'tomorrow_night_bright', lang: 'ruby' })
+  var editor = $(".my-code-code-show").data('ace').editor.ace;
   editor.setReadOnly(true);
   editor.getSession().setUseWrapMode(true);   //turn on word wrap
-  editor.getSession().setTabSize(2);
+
+  $( "#edit-code-show" ).click(function( event ) {
+    var url = "/coders/" + $('#filename-code-show').data("id") + "/edit";
+    $.get(url, function( data ) {
+      $("#code").html(data);
+    });
+  });
+
+  $( "#test-code-show" ).click(function( event ) {
+    var url = "/coders/" + $('#filename-code-show').data("id") + "/runtest";
+    $.get(url, function( data ) {
+      $("#code").html(data);
+    });
+  });  
+
+  // Delete file
+  $( "#delete-code-show" ).click(function( event ) {
+    var url = "/coders/" + $('#filename-code-show').data("id");
+
+    $.ajax({
+      type: "DELETE",
+      url: url,
+      dataType: "json",
+      data: {coder: {code: $('#filename-code-show').text(), "_method":"delete"}},
+      success: function(){
+        alert("Delete was successful");
+      }
+    });
+    event.preventDefault();
+  });
 </script>

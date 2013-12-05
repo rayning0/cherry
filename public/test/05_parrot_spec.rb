@@ -1,3 +1,6 @@
+require_relative '../spec_helper'
+require_relative './parrot.rb' # Code your solution in this file
+
 describe '#parrot' do
   it 'should say "Squawk!" by default' do
     $stdout.should_receive(:puts).with("Squawk!")
