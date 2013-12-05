@@ -48,7 +48,7 @@ class TestersController < ApplicationController
   # DELETE /testers/1
   # DELETE /testers/1.json
   def destroy
-    File.delete(Rails.root.join('public', 'test', params[:tester][:code]))
+    File.delete(Rails.root.join('public', 'test', @tester.code))
     @tester.destroy
     respond_to do |format|
       format.html { redirect_to root_path }

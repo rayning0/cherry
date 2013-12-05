@@ -11,7 +11,7 @@
   editor.getSession().setTabSize(2);
 </script>
 
-<button id="save-test-edit" class="btn btn-danger">Save Code</button> <button id="cls-test-edit" class="btn">Clear Screen</button>
+<button id="save-test-edit" class="btn btn-danger">Save Code</button> <button id="cls-test-edit" class="btn">Clear Screen</button> <%= button_to "Delete File", @tester, method: :delete, class: "btn btn-info" %>
 <br><br>
 
 <script>

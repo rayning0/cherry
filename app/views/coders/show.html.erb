@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <h1><span data-id="<%= @coder.id %>" id="filename-code-show"><%= @coder.code %></span></h1>
-<button id="edit-code-show" class="btn btn-warning">Edit Code</button> <button id="test-code-show" class="btn btn-primary">Test Code</button> <button id="delete-code-show" class="btn btn-info">Delete File</button>
+<button id="edit-code-show" class="btn btn-warning">Edit Code</button> <button id="test-code-show" class="btn btn-primary">Test Code</button> <%= button_to "Delete File", @coder, method: :delete, class: "btn btn-info" %>
 
 <textarea class="my-code-code-show" rows="28" style="width: 90%">
 <% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %>
@@ -25,19 +25,4 @@
     });
   });  
 
-  // Delete file
-  $( "#delete-code-show" ).click(function( event ) {
-    var url = "/coders/" + $('#filename-code-show').data("id");
-
-    $.ajax({
-      type: "DELETE",
-      url: url,
-      dataType: "json",
-      data: {coder: {code: $('#filename-code-show').text(), "_method":"delete"}},
-      success: function(){
-        alert("Delete was successful");
-      }
-    });
-    event.preventDefault();
-  });
 </script>

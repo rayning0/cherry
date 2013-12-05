@@ -1,6 +1,6 @@
 <h1>Edit <span data-id="<%= @coder.id %>" id="filename-code-edit"><%= @coder.code %></span></h1>
 
-<div style="float: right;"><%= button_to "Delete File", @coder, method: :delete, class: "btn btn-info" %> <button id="test-code-edit" class="btn btn-primary">Test Code (with no changes)</button></div>
+<button id="test-code-edit" class="btn btn-primary">Test Code (with no saved changes)</button>
 <textarea class="my-code-code-edit" id="start-code-edit" rows="22" style="width: 90%">
   <% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %>
 </textarea>
@@ -12,7 +12,7 @@
   editor.getSession().setTabSize(2);
 </script>
 
-<button id="save-code-edit" class="btn btn-danger">Save Code</button> <button id="run-code-edit" class="btn btn-success">Run Code</button> <button id="cls-code-edit" class="btn">Clear Screens</button>
+<p><div style="float: left; width: auto;"><button id="save-code-edit" class="btn btn-danger">Save Code</button> <button id="run-code-edit" class="btn btn-success">Run Code</button> <button id="cls-code-edit" class="btn">Clear Screens</button> <%= button_to "Delete File", @coder, method: :delete, class: "btn btn-info" %></div></p>
 <br><br>
 
 <textarea class="my-code-code-edit" id="result-code-edit" rows="14" style="width: 90%"></textarea>
