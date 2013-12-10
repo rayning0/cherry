@@ -1,4 +1,4 @@
-                                                # Define four methods, greeting, morning?, afternoon?, night?.
+                                                        # Define four methods, greeting, morning?, afternoon?, night?.
 
 # greeting should accept the current hour.
 # The greeting method should pass the hour right now to 
@@ -14,7 +14,7 @@
 
 def greeting(h)
   if morning?(h) 
-    return 'Good Morning Balazs!'
+    return 'Good Morning Santa!'
   elsif afternoon?(h)
     return 'Good Afternoon!'
   elsif night?(h)
@@ -33,6 +33,10 @@ end
 def night?(h)
   h.between?(20, 23) || h.between?(0, 5)
 end
+
+
+
+
 
 
 
