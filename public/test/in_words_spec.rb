@@ -16,7 +16,9 @@
 #     \["inspect", "%", "<<", ...
 #
 # The number 4 is of class `FixNum` and it has methods on it.  Your challenge is to add an `in_words` method to `FixNum`.
-#
+# George hi there
+
+require "in_words"
 
 describe Fixnum do
 

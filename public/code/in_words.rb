@@ -1,4 +1,4 @@
-class Fixnum
+        class Fixnum
   def in_words
     # n / power of 10 = leftmost digit. n % power of 10 = remaining right digits.
 
@@ -91,3 +91,6 @@ class Fixnum
     d[n]
   end
 end
+
+
+

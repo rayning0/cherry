@@ -1,4 +1,4 @@
-  # # Topics
+        # # Topics
 #
 # * modules
 # * strings
@@ -15,7 +15,9 @@
 #
 # See <http://en.wikipedia.org/wiki/Pig_latin> for more details.
 #
-#
+# Hi Zubin
+
+require "pig_latin"
 
 describe "#translate" do
 
@@ -77,4 +79,9 @@ describe "#translate" do
     s.should == "Ethay oxfay, ilewhay iendsfray ithway ethay Ogday, umpedjay overay imhay anywayay!"
   end
 end
+
+# hi amine
+
+
+
 

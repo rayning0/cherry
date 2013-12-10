@@ -8,6 +8,7 @@ class CodersController < ApplicationController
   # GET /coders.json
   def index
     @coders = Coder.all
+
   end
 
   # GET /coders/1
@@ -34,7 +35,7 @@ class CodersController < ApplicationController
     File.open(Rails.root.join('public', 'code', uploaded_io.original_filename), 'w') do |file|
       file.write(uploaded_io.read)
     end
-    redirect_to @coder
+    redirect_to root_path({code: uploaded_io.original_filename, id: @coder.id})
   end
 
   # PATCH/PUT /coders/1

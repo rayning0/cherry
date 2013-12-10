@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 <h1><span data-id="<%= @coder.id %>" id="filename-code-show"><%= @coder.code %></span></h1>
-<button id="edit-code-show" class="btn btn-warning">Edit Code</button> <button id="test-code-show" class="btn btn-primary">Test Code</button> <%= button_to "Delete File", @coder, method: :delete, class: "btn btn-info" %>
+<button id="edit-code-show" class="btn btn-warning">Edit Code</button> <button id="test-code-show" class="btn btn-primary">Test Code</button> <%= link_to "Delete File", @coder, method: :delete, class: "btn btn-info" %>
 
 <textarea class="my-code-code-show" rows="28" style="width: 90%">
 <% File.open(Rails.root.to_s + "/public/code/" + @coder.code, "r").each_line do |line| %><%= line %><% end %>

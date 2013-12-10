@@ -16,7 +16,7 @@ $(function() {
     <li><a id="upload_test" href="#uploadtest">Upload</a></li>
 
     <li class="dropdown">
-      <a data-toggle="dropdown" class="dropdown-toggle" href="#">RSpec Tests<b class="caret"></b></a>
+      <a id="testtab" data-toggle="dropdown" class="dropdown-toggle" href="#">RSpec Tests<b class="caret"></b></a>
       <ul class="dropdown-menu">
 
         <% @testers.sort_by{ |t| t.code}.each do |tester| %>
@@ -29,7 +29,7 @@ $(function() {
     <li><a id="upload_code" href="#uploadcode">Upload</a></li>
 
     <li class="dropdown">
-      <a data-toggle="dropdown" class="dropdown-toggle" href="#">Ruby Code<b class="caret"></b></a>
+      <a id="codetab" data-toggle="dropdown" class="dropdown-toggle" href="#">Ruby Code<b class="caret"></b></a>
       <ul class="dropdown-menu">
 
         <% @coders.sort_by { |c| c.code}.each do |coder| %>
@@ -42,6 +42,26 @@ $(function() {
     <li><a href="#sectionB">How to Use</a></li>
 
   </ul>
+
+<script>
+var param = window.location.search.replace( "?", "" );
+var param_id = param.split("id=")[1]
+
+if (param) {
+  if (param.slice(0,4) === "code") {
+    $('#codetab').tab('show').click();
+    $.get("/coders/" + param_id + "/edit", function( data ) {
+      $("#code").html(data);
+    });
+  }
+  else if (param.slice(0,4) === "test") {
+    $('#testtab').tab('show').click();
+    $.get("/testers/" + param_id + "/edit", function( data ) {
+      $("#test").html(data);
+    });
+  }
+}
+</script>
 
   <div class="tab-content">
     <div id="sectionA" class="tab-pane fade in active">

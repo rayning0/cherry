@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131130180557) do
+ActiveRecord::Schema.define(version: 20131121160546) do
 
   create_table "coders", force: true do |t|
     t.text     "code"

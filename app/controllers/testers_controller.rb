@@ -33,7 +33,7 @@ class TestersController < ApplicationController
     File.open(Rails.root.join('public', 'test', uploaded_io.original_filename), 'w') do |file|
       file.write(uploaded_io.read)
     end
-    redirect_to @tester
+    redirect_to root_path({test: uploaded_io.original_filename, id: @tester.id})
   end
 
   # PATCH/PUT /testers/1

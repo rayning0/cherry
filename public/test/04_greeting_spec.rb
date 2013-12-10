@@ -1,9 +1,9 @@
-require_relative '../spec_helper'
+      require_relative '../spec_helper'
 require_relative './greeting.rb' # Code your solution in this file
 
 describe '#greeting' do
   it 'should say Good Morning! during the morning' do
-    greeting(6).should eq 'Good Morning!'
+    greeting(6).should eq 'Good Morning Balazs!'
   end
 
   it 'should say Good Afternoon! during the afternoon' do
@@ -47,5 +47,24 @@ describe '#night?' do
     night?(14).should be_false
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

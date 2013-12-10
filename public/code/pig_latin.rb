@@ -1,4 +1,4 @@
-def translate(s)
+        def translate(s)
   pig = []
   vowels = %w[a e i o u]
   consonants = ('a'..'z').to_a - vowels
@@ -50,3 +50,6 @@ def punctcheck(word)
   end
   word
 end
+
+
+

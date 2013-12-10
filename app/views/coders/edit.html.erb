@@ -12,7 +12,7 @@
   editor.getSession().setTabSize(2);
 </script>
 
-<p><div style="float: left; width: auto;"><button id="save-code-edit" class="btn btn-danger">Save Code</button> <button id="run-code-edit" class="btn btn-success">Run Code</button> <button id="cls-code-edit" class="btn">Clear Screens</button> <%= button_to "Delete File", @coder, method: :delete, class: "btn btn-info" %></div></p>
+<button id="save-code-edit" class="btn btn-danger">Save Code</button> <button id="run-code-edit" class="btn btn-success">Run Code</button> <button id="cls-code-edit" class="btn">Clear Screens</button> <%= link_to "Delete File", @coder, method: :delete, class: "btn btn-info" %>
 <br><br>
 
 <textarea class="my-code-code-edit" id="result-code-edit" rows="14" style="width: 90%"></textarea>

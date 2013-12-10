@@ -1,4 +1,4 @@
-  # # Simon Says
+# # Simon Says
 #
 # ## Topics
 #
@@ -10,6 +10,9 @@
 #
 # When you make the second `repeat` test pass, you might break the **first**
 #
+
+require "simon_says"
+
 describe "Simon says" do
   describe "echo" do
     it "should echo hello" do
@@ -91,4 +94,3 @@ describe "Simon says" do
   end
 
 end
-
